@@ -1,17 +1,15 @@
 package br.com.blz.testjava.domian
 
+import com.fasterxml.jackson.annotation.JsonBackReference
 import com.fasterxml.jackson.annotation.JsonManagedReference
 import javax.persistence.*
 
-//@Entity
+@Entity
 @Table(name = "SKU_INVENTORY")
-data class Inventory (
-//  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-//  val id: Long,
-//
-//  @JsonManagedReference
-//  @OneToMany(mappedBy = "inventory", cascade = arrayOf(CascadeType.ALL), fetch = FetchType.EAGER)
-  val warehouse: List<Endereco>
+data class Inventory(
+  @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
+  val id: Long,
+  val warehouse: String
 
 )
 
