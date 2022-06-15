@@ -20,7 +20,8 @@ data class ProdutoSku(
 
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "inventory_id")
-  var inventory: Inventory,
+  var inventory: Inventory?,
+
 
   val isMarketable: Boolean
 

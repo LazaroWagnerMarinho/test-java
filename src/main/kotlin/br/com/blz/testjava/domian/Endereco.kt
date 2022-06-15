@@ -13,8 +13,13 @@ data class Endereco(
   val quantity: Int,
   val type: String,
 
-  @JsonManagedReference
-  @OneToMany(mappedBy = "endereco", cascade = arrayOf(CascadeType.ALL), fetch = FetchType.EAGER)
-  var inventory: List<Inventory> = emptyList(),
+  @ManyToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "warehouses_id")
+  val warehouses: Warehouses?,
+
+
+//  @ManyToOne(fetch = FetchType.LAZY)
+//  @JoinColumn(name = "endereco_id")
+//  val warehouses: Warehouses?,
 
 )

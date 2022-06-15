@@ -11,21 +11,30 @@ data class Inventory(
 
   val quantity: Long,
 
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "warehouses_id")
+  var warehouses: Warehouses?,
 
-//  @OneToOne(mappedBy = "inventory", fetch = FetchType.EAGER)
-//  val warehouses: Warehouses,
+//  val warehouses: String,
 
   @OneToOne(mappedBy = "inventory", fetch = FetchType.EAGER)
-  val produtoSku: ProdutoSku,
+  val produtoSku: ProdutoSku?,
 
-    @JsonBackReference
-  @ManyToOne(fetch = FetchType.EAGER)
-  @JoinColumn(name = "endereco_id")
-  val endereco: Endereco?
+//  @OneToOne(fetch = FetchType.LAZY)
+//  @JoinColumn(name = "warehouse_id")
+//  val warehouses: Warehouses,
+//
+
+//
+//  @JsonBackReference
+//  @ManyToOne(fetch = FetchType.EAGER)
+//  @JoinColumn(name = "endereco_id")
+//  val endereco: Endereco?
   )
+
 //  @JsonManagedReference
 //  @OneToMany(mappedBy = "inventory", cascade = arrayOf(CascadeType.ALL), fetch = FetchType.EAGER)
-//  var produtoSku: List<ProdutoSku> = emptyList(),
+//  val produtoSku: List<ProdutoSku> = emptyList(),
 
 
 
