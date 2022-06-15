@@ -1,11 +1,13 @@
 package br.com.blz.testjava.controller
 
+import br.com.blz.testjava.domian.Inventory
 import br.com.blz.testjava.domian.ProdutoSku
 import br.com.blz.testjava.repository.EnderecoRepository
 import br.com.blz.testjava.repository.InventoryRepository
 import br.com.blz.testjava.repository.ProdutoSkuRepository
 import br.com.blz.testjava.repository.WarehousesRepository
 import br.com.blz.testjava.services.SkuService
+import org.springframework.expression.common.ExpressionUtils.toLong
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
@@ -23,7 +25,19 @@ class SkuController(
 
 
   @GetMapping("/sku/{id}")
-  fun skuIde(@PathVariable id: Long): Optional<ProdutoSku> = produtoSkuRepository.findById(id)
+  fun skuIde(@PathVariable id: Long): Optional<ProdutoSku>{
+    val produtoDto = produtoSkuRepository.findById(id)
+    val idInv = produtoDto.get().inventory?.id
+    val inventoryDto = idInv?.let { inventoryRepository.findById(it) }
+    val quantityDto = produtoDto.get().inventory?.warehouses?.endereco?.size
+    val salve = quantityDto?.let {
+      inventoryDto?.orElseThrow{ java.lang.RuntimeException("Id Inventory: $id nao encontrado")}
+        ?.copy(quantity = it.toLong())
+    }
+    inventoryRepository.save(salve)
+
+    return produtoSkuRepository.findById(id)
+  }
 
 
   @PostMapping("/sku/produto")

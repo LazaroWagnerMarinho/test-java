@@ -15,7 +15,9 @@ interface SkuRepository: JpaRepository<ProdutoSku, String>
 interface ProdutoSkuRepository : JpaRepository<ProdutoSku, Long>
 
 @Repository
-interface InventoryRepository : JpaRepository<Inventory, Long>
+interface InventoryRepository : JpaRepository<Inventory, Long> {
+  fun save(salve: Inventory?)
+}
 
 @Repository
 interface WarehousesRepository: JpaRepository<Warehouses, Long>
