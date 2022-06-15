@@ -7,41 +7,17 @@ import javax.persistence.*
 @Entity
 data class Inventory(
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-  val id: Long,
+  val id: Long = 0,
 
-  val quantity: Long,
+  val quantity: Long = 0,
 
+  @JsonManagedReference
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "warehouses_id")
-  var warehouses: Warehouses?,
+  val warehouses: Warehouses? = null,
 
-//  val warehouses: String,
+  @JsonBackReference
+  @OneToMany(mappedBy = "inventory", fetch = FetchType.EAGER)
+  val produtoSku: List<ProdutoSku> = emptyList(),
 
-  @OneToOne(mappedBy = "inventory", fetch = FetchType.EAGER)
-  val produtoSku: ProdutoSku?,
-
-//  @OneToOne(fetch = FetchType.LAZY)
-//  @JoinColumn(name = "warehouse_id")
-//  val warehouses: Warehouses,
-//
-
-//
-//  @JsonBackReference
-//  @ManyToOne(fetch = FetchType.EAGER)
-//  @JoinColumn(name = "endereco_id")
-//  val endereco: Endereco?
   )
-
-//  @JsonManagedReference
-//  @OneToMany(mappedBy = "inventory", cascade = arrayOf(CascadeType.ALL), fetch = FetchType.EAGER)
-//  val produtoSku: List<ProdutoSku> = emptyList(),
-
-
-
-
-//  @JsonManagedReference
-//  @OneToMany(mappedBy = "warehouses", cascade = arrayOf(CascadeType.ALL), fetch = FetchType.EAGER)
-//  var warehouses: List<Warehouse> = emptyList(),
-
-//)
-

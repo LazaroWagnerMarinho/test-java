@@ -9,21 +9,17 @@ data class ProdutoSku(
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  val id: Long,
-  val sku: Long,
-  val name: String,
+  val id: Long = 0,
+  val sku: Long = 0,
+  val name: String = "",
 
-//  @JsonBackReference
-//  @ManyToOne(fetch = FetchType.EAGER)
-//  @JoinColumn(name = "inventory_id")
-//  val inventory: Inventory?,
-
-  @OneToOne(fetch = FetchType.LAZY)
+  @JsonManagedReference
+  @ManyToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "inventory_id")
-  var inventory: Inventory?,
+  val inventory: Inventory? = null,
 
+  val isMarketable: Boolean = false
 
-  val isMarketable: Boolean
-
-)
+){
+}
 

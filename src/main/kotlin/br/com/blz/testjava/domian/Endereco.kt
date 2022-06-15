@@ -7,19 +7,19 @@ import javax.persistence.*
 @Entity
 data class Endereco(
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
-  val id: Long,
+  val id: Long = 0,
 
-  val locality: String,
-  val quantity: Int,
-  val type: String,
+  val locality: String = "",
+  val quantity: Int = 0,
+  val type: String ="",
 
-  @ManyToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "warehouses_id")
-  val warehouses: Warehouses?,
+  @JsonBackReference
+  @OneToMany(mappedBy = "endereco", fetch = FetchType.EAGER)
+  val warehouses: List<Warehouses>? = emptyList(),
 
-
+//  @JsonBackReference
 //  @ManyToOne(fetch = FetchType.LAZY)
-//  @JoinColumn(name = "endereco_id")
-//  val warehouses: Warehouses?,
+//  @JoinColumn(name = "warehouses_id")
+//  val warehouses: Warehouses? = null,
 
 )
