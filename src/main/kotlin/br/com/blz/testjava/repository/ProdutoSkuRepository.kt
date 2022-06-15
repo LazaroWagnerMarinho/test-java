@@ -16,3 +16,4 @@ interface InventoryRepository : JpaRepository<Inventory, Long>
 interface EnderecoRepository : JpaRepository<Endereco, Long> {
   abstract fun save(it: List<Endereco>): List<Endereco>
 }
+

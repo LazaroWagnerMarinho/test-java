@@ -3,10 +3,7 @@ package br.com.blz.testjava;
 import br.com.blz.testjava.domian.Endereco
 import br.com.blz.testjava.domian.Inventory
 import br.com.blz.testjava.domian.ProdutoSku
-import br.com.blz.testjava.repository.EnderecoRepository
-import br.com.blz.testjava.repository.InventoryRepository
-import br.com.blz.testjava.repository.ProdutoSkuRepository
-import br.com.blz.testjava.repository.SkuRepository
+import br.com.blz.testjava.repository.*
 //import br.com.blz.testjava.repository.SkuRepository
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.data.repository.CrudRepository
@@ -24,7 +21,11 @@ private class TestJavaApplication
   }
 
 @RestController
-class SkuController(val produtoSkuRepository: ProdutoSkuRepository, val inventoryRepository: InventoryRepository, val enderecoRepository: EnderecoRepository ) {
+class SkuController(
+  val produtoSkuRepository: ProdutoSkuRepository,
+  val inventoryRepository: InventoryRepository,
+  val enderecoRepository: EnderecoRepository
+  ) {
   @GetMapping("/sku")
   fun sku(): List<ProdutoSku> = produtoSkuRepository.findAll()
 
@@ -43,8 +44,9 @@ class SkuController(val produtoSkuRepository: ProdutoSkuRepository, val inventor
 
   @PostMapping("/sku/produto")
   fun post(@RequestBody produtoSku: ProdutoSku) {
+    produtoSku.inventory?.endereco?.let { enderecoRepository.save(it) }
+    produtoSku.inventory?.let {inventoryRepository.save(it)}
     produtoSku.inventory?.let { inventoryRepository.save(it) }
-//    produtoSku.inventory?.warehouses?.let { enderecoRepository.saveAll(it)}
     produtoSkuRepository.save(produtoSku)
   }
 

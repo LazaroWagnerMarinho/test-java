@@ -13,11 +13,14 @@ data class ProdutoSku(
   val sku: Long,
   val name: String,
 
+//  @JsonBackReference
+//  @ManyToOne(fetch = FetchType.EAGER)
+//  @JoinColumn(name = "inventory_id")
+//  val inventory: Inventory?,
 
-  @JsonBackReference
-  @ManyToOne(fetch = FetchType.EAGER)
+  @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "inventory_id")
-  val inventory: Inventory?,
+  var inventory: Inventory,
 
   val isMarketable: Boolean
 
