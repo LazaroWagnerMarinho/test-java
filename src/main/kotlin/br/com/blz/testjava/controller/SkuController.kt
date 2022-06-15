@@ -45,6 +45,12 @@ class SkuController(
     produtoSku.inventory?.warehouses?.endereco?.let { enderecoRepository.saveAll(it) }
     produtoSku.inventory?.warehouses?.let { warehousesRepository.save(it) }
     produtoSku.inventory?.let { inventoryRepository.save(it) }
+    if(produtoSku.inventory?.quantity!! > 0){
+      val salvar = produtoSku.copy(isMarketable = true)
+      produtoSkuRepository.save(salvar)
+      return
+    }
+
     produtoSkuRepository.save(produtoSku)
   }
 
