@@ -5,7 +5,6 @@ import com.fasterxml.jackson.annotation.JsonManagedReference
 import javax.persistence.*
 
 @Entity
-@Table(name = "SKU_INVENTORY")
 data class Inventory(
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   val id: Long,
