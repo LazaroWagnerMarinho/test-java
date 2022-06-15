@@ -6,6 +6,7 @@ import br.com.blz.testjava.repository.InventoryRepository
 import br.com.blz.testjava.repository.ProdutoSkuRepository
 import br.com.blz.testjava.repository.WarehousesRepository
 import br.com.blz.testjava.services.SkuService
+import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.*
 
@@ -31,6 +32,17 @@ class SkuController(
     produtoSku.inventory?.warehouses?.let { warehousesRepository.save(it) }
     produtoSku.inventory?.let { inventoryRepository.save(it) }
     produtoSkuRepository.save(produtoSku)
+  }
+
+  @DeleteMapping("/delete/{id}")
+  fun delete(@PathVariable id: Long): Unit = produtoSkuRepository.deleteById(id)
+
+  @PutMapping("/alter/{id}")
+  fun alter(@PathVariable id: Long, @RequestBody produtoSku: ProdutoSku): ResponseEntity<ProdutoSku>{
+    val produtoDto = produtoSkuRepository.findById(id)
+    val toSalve = produtoDto.orElseThrow{ java.lang.RuntimeException("Sku: $id nao encontrado")}
+      .copy(name = produtoSku.name)
+    return ResponseEntity.ok(produtoSkuRepository.save(toSalve))
   }
 
 }
