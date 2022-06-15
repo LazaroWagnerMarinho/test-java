@@ -28,7 +28,7 @@ class SkuController(
 
   @PostMapping("/sku/produto")
   fun post(@RequestBody produtoSku: ProdutoSku) {
-    produtoSku.inventory?.warehouses?.endereco?.let { enderecoRepository.save(it) }
+    produtoSku.inventory?.warehouses?.endereco?.let { enderecoRepository.saveAll(it) }
     produtoSku.inventory?.warehouses?.let { warehousesRepository.save(it) }
     produtoSku.inventory?.let { inventoryRepository.save(it) }
     produtoSkuRepository.save(produtoSku)

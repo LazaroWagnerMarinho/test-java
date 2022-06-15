@@ -14,7 +14,7 @@ data class Endereco(
   val type: String ="",
 
   @JsonBackReference
-  @OneToMany(mappedBy = "endereco", fetch = FetchType.EAGER)
+  @ManyToMany(mappedBy = "endereco", fetch = FetchType.EAGER)
   val warehouses: List<Warehouses>? = emptyList(),
 
 //  @JsonBackReference

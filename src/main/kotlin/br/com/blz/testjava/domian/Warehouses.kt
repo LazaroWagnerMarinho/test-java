@@ -17,9 +17,9 @@ data class Warehouses (
 
 
   @JsonManagedReference
-  @ManyToOne(fetch = FetchType.LAZY)
+  @ManyToMany(fetch = FetchType.LAZY)
   @JoinColumn(name = "endereco_id")
-  val endereco: Endereco? = null,
+  val endereco: List<Endereco>? = emptyList(),
 
   @JsonBackReference
   @OneToOne(mappedBy = "warehouses", fetch = FetchType.EAGER)
