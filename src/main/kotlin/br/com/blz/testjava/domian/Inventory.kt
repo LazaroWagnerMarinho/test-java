@@ -8,7 +8,17 @@ import javax.persistence.*
 data class Inventory(
   @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
   val id: Long,
-  val warehouse: String
+
+  val quantity: Long,
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "inventory", cascade = arrayOf(CascadeType.ALL), fetch = FetchType.EAGER)
+  var produtoSku: List<ProdutoSku> = emptyList(),
+
+
+//  @JsonManagedReference
+//  @OneToMany(mappedBy = "warehouses", cascade = arrayOf(CascadeType.ALL), fetch = FetchType.EAGER)
+//  val warehouses: List<Endereco> = emptyList(),
 
 )
 

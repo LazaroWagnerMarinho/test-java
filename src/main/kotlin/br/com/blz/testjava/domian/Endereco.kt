@@ -13,4 +13,9 @@ data class Endereco(
   val quantity: Int,
   val type: String,
 
+//  @JsonBackReference
+//  @ManyToOne(fetch = FetchType.EAGER)
+//  @JoinColumn(name = "warehouses_id")
+//  val warehouses: Inventory
+
 )

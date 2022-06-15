@@ -42,11 +42,22 @@ class SkuController(val produtoSkuRepository: ProdutoSkuRepository, val inventor
 //  fun sku(): List<ProdutoSku> = service.findAllProdutoSku()
 
   @PostMapping("/sku/produto")
-  fun post(@RequestBody produtoSku: ProdutoSku) = ResponseEntity.ok(produtoSkuRepository.save(produtoSku))
+  fun post(@RequestBody produtoSku: ProdutoSku) {
+    produtoSku.inventory?.let { inventoryRepository.save(it) }
+//    produtoSku.inventory?.warehouses?.let { enderecoRepository.saveAll(it)}
+    produtoSkuRepository.save(produtoSku)
+  }
 
   @PostMapping("/sku/inventory")
-  fun post(@RequestBody inventory: Inventory) = ResponseEntity.ok(inventoryRepository.save(inventory))
+  fun post(@RequestBody inventory: Inventory) {
+    inventoryRepository.save(inventory)
+//    inventory.warehouses?.let { enderecoRepository.saveAll(it) }
+  }
 
   @PostMapping("/sku/endereco")
-  fun post(@RequestBody endereco: Endereco) = ResponseEntity.ok(enderecoRepository.save(endereco))
+  fun post(@RequestBody endereco: Endereco) {
+//    endereco.inventory?.let { inventoryRepository.saveAll(it) }
+//    produtoSku.inventory?.warehouses?.let { enderecoRepository.save(it)}
+    enderecoRepository.save(endereco)
+  }
 }

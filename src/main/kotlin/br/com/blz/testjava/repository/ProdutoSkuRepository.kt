@@ -13,4 +13,6 @@ interface ProdutoSkuRepository : JpaRepository<ProdutoSku, Long>
 interface InventoryRepository : JpaRepository<Inventory, Long>
 
 @Repository
-interface EnderecoRepository : JpaRepository<Endereco, Long>
+interface EnderecoRepository : JpaRepository<Endereco, Long> {
+  abstract fun save(it: List<Endereco>): List<Endereco>
+}
